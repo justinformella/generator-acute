@@ -1,6 +1,12 @@
 express = require 'express'
 server = express()
 
+fs = require 'fs'
+
+console.log "Searching for data."
+data = fs.readdirSync 'server/data'
+console.log data
+
 server.get '/hi', (req, res) ->
   body = 'Hello World'
 
