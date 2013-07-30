@@ -52,5 +52,5 @@ AcuteGenerator.prototype.restServer = function restServer(){
   this.copy('server/_server.coffee', 'server/server.coffee');
 
   this.mkdir('server/data');
-  this.copy('server/data/_todo.json', 'server/data/todo.json');
+  this.copy('server/data/_todos.json', 'server/data/todos.json');
 }

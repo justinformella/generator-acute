@@ -5,15 +5,21 @@ fs = require 'fs'
 
 console.log "Searching for data."
 data = fs.readdirSync 'server/data'
+
+console.log "\nFound data:"
 console.log data
 
-server.get '/hi', (req, res) ->
-  body = 'Hello World'
+data.forEach (file) ->
+  console.log '\nReading ' + file
+  fileContents = fs.readFileSync 'server/data/' + file
+  fileJSON = JSON.parse fileContents
+  console.log '\nFinished reading ' + file
 
-  res.setHeader 'Content-Type'   , 'text/plain'
-  res.setHeader 'Content-Length' , body.length
+  endpoint = file.replace /\..+$/, ''
+  console.log '\nSetting up rest endpoint for ' + endpoint
 
-  res.end body
+  server.get '/' + endpoint, (req, res) ->
+    res.send { results: fileJSON.initialData }
 
 server.listen 3000
 console.log 'Listening on port 3000'
