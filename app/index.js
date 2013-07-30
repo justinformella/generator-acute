@@ -42,6 +42,7 @@ AcuteGenerator.prototype.app = function app() {
 };
 
 AcuteGenerator.prototype.projectfiles = function projectfiles() {
+  this.copy('_Gruntfile.coffee', 'Gruntfile.coffee');
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
 };
