@@ -20,9 +20,8 @@ data.forEach (file) ->
     return 1
   patchObject = (obj) ->
     obj.id ?= nextID()
-    _(obj).extend
-      modified_at: new Date()
-      created_at: new Date()
+    obj.modified_at = new Date()
+    obj.created_at ?= new Date()
     return obj
 
   find = (id) ->
