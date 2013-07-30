@@ -48,6 +48,14 @@ data.forEach (file) ->
     else
       res.send { results: result }
 
+  server.put '/' + endpoint, (req, res) ->
+    result = find req.body.id
+    unless result?
+      res.status(404).send { results: null }
+    else
+      _(result).extend req.body
+      res.send { results: result }
+
   server.delete '/' + endpoint + '/:id', (req, res) ->
     result = find req.params.id
     unless result?
