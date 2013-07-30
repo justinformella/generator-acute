@@ -6,7 +6,7 @@ apiRoot = '/api/'
 
 server.use express.bodyParser()
 
-server.use "/", express.static("app/")
+server.use "/", express.static ".tmp/"
 
 fs = require 'fs'
 

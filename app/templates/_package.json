@@ -2,6 +2,8 @@
   "name": "package",
   "version": "0.0.0",
   "dependencies": {
+    "grunt-contrib-watch": "0.5.1",
+    "grunt-contrib-jade": "0.8.0",
     "underscore": "1.5.1",
     "express": "3.3.4",
     "grunt-express-server": "0.4.1",

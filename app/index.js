@@ -49,7 +49,7 @@ AcuteGenerator.prototype.projectfiles = function projectfiles() {
 
 AcuteGenerator.prototype.client = function client(){
   this.mkdir('app');
-  this.copy('client/_index.html', 'app/index.html');
+  this.copy('client/_index.jade', 'app/index.jade');
 }
 
 AcuteGenerator.prototype.restServer = function restServer(){
