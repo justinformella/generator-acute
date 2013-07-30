@@ -1,6 +1,8 @@
 express = require 'express'
 server = express()
 
+server.use express.bodyParser()
+
 fs = require 'fs'
 
 console.log "Searching for data."
@@ -20,6 +22,10 @@ data.forEach (file) ->
 
   server.get '/' + endpoint, (req, res) ->
     res.send { results: fileJSON.initialData }
+
+  server.post '/' + endpoint, (req, res) ->
+    fileJSON.initialData.push req.body
+    res.send { results: req.body }
 
 server.listen 3000
 console.log 'Listening on port 3000'
