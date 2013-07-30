@@ -21,7 +21,7 @@ data.forEach (file) ->
   patchObject = (obj) ->
     obj.id ?= nextID()
     _(obj).extend
-      updated_at: new Date()
+      modified_at: new Date()
       created_at: new Date()
     return obj
 
