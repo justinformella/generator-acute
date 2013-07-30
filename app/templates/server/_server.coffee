@@ -1,3 +1,4 @@
+_ = require 'underscore'
 express = require 'express'
 server = express()
 
@@ -13,12 +14,10 @@ console.log data
 
 data.forEach (file) ->
 
-  endpointData = []
   nextID = ->
-    id = 1
-    endpointData.forEach (currentData) ->
-      id = currentData.id + 1 if currentData.id >= id
-    return id
+    latest = _(endpointData).max (datum) -> datum.id
+    return 1 + latest.id if _(latest).isObject()
+    return 1
   patchObject = (obj) ->
     obj.id ?= nextID()
     obj.updated_at = new Date()
@@ -26,10 +25,7 @@ data.forEach (file) ->
     return obj
 
   find = (id) ->
-    result = null
-    endpointData.forEach (currentData) ->
-      result = currentData if currentData.id == id
-    return result
+    _(endpointData).find (currentData) -> currentData.id == id
 
   console.log '\nReading ' + file
   fileContents = fs.readFileSync 'server/data/' + file
@@ -39,8 +35,7 @@ data.forEach (file) ->
   endpoint = file.replace /\..+$/, ''
   console.log '\nSetting up rest endpoint for ' + endpoint
 
-  fileJSON.initialData.forEach (json) ->
-    endpointData.push patchObject json
+  endpointData = _(fileJSON.initialData).map patchObject
 
   server.get '/' + endpoint, (req, res) ->
     res.send { results: endpointData }
