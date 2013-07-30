@@ -37,9 +37,6 @@ AcuteGenerator.prototype.askFor = function askFor() {
 };
 
 AcuteGenerator.prototype.app = function app() {
-  this.mkdir('app');
-  this.mkdir('app/templates');
-
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
 };
@@ -48,3 +45,7 @@ AcuteGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
 };
+
+AcuteGenerator.prototype.restServer = function restServer(){
+  this.mkdir('server');
+}
