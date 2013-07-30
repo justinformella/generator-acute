@@ -2,6 +2,8 @@ _ = require 'underscore'
 express = require 'express'
 server = express()
 
+apiRoot = '/api/'
+
 server.use express.bodyParser()
 
 fs = require 'fs'
@@ -37,17 +39,17 @@ data.forEach (file) ->
 
   endpointData = _(fileJSON.initialData).map patchObject
 
-  server.get '/' + endpoint, (req, res) ->
+  server.get apiRoot + endpoint, (req, res) ->
     res.send { results: endpointData }
 
-  server.get '/' + endpoint + '/:id', (req, res) ->
+  server.get apiRoot + endpoint + '/:id', (req, res) ->
     result = find req.params.id
     unless result?
       res.status(404).send { results: null }
     else
       res.send { results: result }
 
-  server.put '/' + endpoint, (req, res) ->
+  server.put apiRoot + endpoint, (req, res) ->
     result = find req.body.id
     unless result?
       res.status(404).send { results: null }
@@ -55,7 +57,7 @@ data.forEach (file) ->
       _(result).extend req.body
       res.send { results: result }
 
-  server.delete '/' + endpoint + '/:id', (req, res) ->
+  server.delete apiRoot + endpoint + '/:id', (req, res) ->
     result = find req.params.id
     unless result?
       res.status(404).send { results: null }
@@ -63,7 +65,7 @@ data.forEach (file) ->
       endpointData = _(endpointData).without result
       res.send { results: result }
 
-  server.post '/' + endpoint, (req, res) ->
+  server.post apiRoot + endpoint, (req, res) ->
     endpointData.push patchObject req.body
     res.status(201).send { results: req.body }
 
