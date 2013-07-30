@@ -20,12 +20,13 @@ data.forEach (file) ->
     return 1
   patchObject = (obj) ->
     obj.id ?= nextID()
-    obj.updated_at = new Date()
-    obj.created_at ?= new Date()
+    _(obj).extend
+      updated_at: new Date()
+      created_at: new Date()
     return obj
 
   find = (id) ->
-    _(endpointData).find (currentData) -> currentData.id == id
+    _(endpointData).find((currentData) -> currentData.id == parseInt(id, 10))
 
   console.log '\nReading ' + file
   fileContents = fs.readFileSync 'server/data/' + file
@@ -41,10 +42,18 @@ data.forEach (file) ->
     res.send { results: endpointData }
 
   server.get '/' + endpoint + '/:id', (req, res) ->
-    result = find parseInt(req.params.id, 10)
-    if result is null
+    result = find req.params.id
+    unless result?
       res.status(404).send { results: null }
     else
+      res.send { results: result }
+
+  server.delete '/' + endpoint + '/:id', (req, res) ->
+    result = find req.params.id
+    unless result?
+      res.status(404).send { results: null }
+    else
+      endpointData = _(endpointData).without result
       res.send { results: result }
 
   server.post '/' + endpoint, (req, res) ->
