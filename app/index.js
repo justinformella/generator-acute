@@ -47,6 +47,11 @@ AcuteGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('jshintrc', '.jshintrc');
 };
 
+AcuteGenerator.prototype.client = function client(){
+  this.mkdir('app');
+  this.copy('client/_index.html', 'app/index.html');
+}
+
 AcuteGenerator.prototype.restServer = function restServer(){
   this.mkdir('server');
   this.copy('server/_server.coffee', 'server/server.coffee');
