@@ -6,6 +6,8 @@ apiRoot = '/api/'
 
 server.use express.bodyParser()
 
+server.use "/", express.static("app/")
+
 fs = require 'fs'
 
 console.log "Searching for data."
