@@ -48,4 +48,5 @@ AcuteGenerator.prototype.projectfiles = function projectfiles() {
 
 AcuteGenerator.prototype.restServer = function restServer(){
   this.mkdir('server');
+  this.copy('server/_server.coffee', 'server/server.coffee');
 }
