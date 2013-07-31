@@ -9,6 +9,7 @@ server.use express.bodyParser()
 server.use require('connect-livereload')()
 
 server.use "/", express.static ".tmp/"
+server.use "/bower_components", express.static "bower_components/"
 
 fs = require 'fs'
 

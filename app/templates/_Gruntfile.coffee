@@ -19,6 +19,8 @@ module.exports = (grunt) ->
         files: 'app/**/*.jade'
         tasks: ['jade']
     jade:
+      options:
+        doctype: '5'
       dev:
         files: [ '.tmp/index.html': 'app/index.jade'
                ]
