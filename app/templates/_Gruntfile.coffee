@@ -11,8 +11,11 @@ module.exports = (grunt) ->
         files: 
           '.server/server.js': 'server/server.coffee'
     watch:
+      options:
+        livereload: true
       jade:
-        atBegin: true
+        options:
+          atBegin: true
         files: 'app/**/*.jade'
         tasks: ['jade']
     jade:

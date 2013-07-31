@@ -6,6 +6,8 @@ apiRoot = '/api/'
 
 server.use express.bodyParser()
 
+server.use require('connect-livereload')()
+
 server.use "/", express.static ".tmp/"
 
 fs = require 'fs'
